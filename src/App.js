@@ -8,7 +8,6 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
 import About from "./pages/About";
-import Social from "./pages/Social";
 import FormsOrc from "./pages/Orcamento";
 
 function App() {
@@ -27,9 +26,6 @@ function App() {
       </div>
       <div id="formsRsd">
         <FormsOrc />
-      </div>
-      <div id="social">
-        <Social />
       </div>
       <Footer />
     </ThemeProvider>

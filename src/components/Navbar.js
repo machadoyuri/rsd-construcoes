@@ -32,6 +32,7 @@ const Navbar = () => {
       position="fixed"
       elevation={transparent ? 0 : 4}
       sx={{
+        height: '9vh',
         p: 1,
         transition: "background-color 0.4s ease, box-shadow 0.4s ease",
         bgcolor: transparent ? "transparent" : "#000.0.1",
@@ -45,16 +46,16 @@ const Navbar = () => {
           <img
             src={logoRSD}
             alt="Logo RSD"
-            style={{ width: 80, marginRight: 16, marginTop: -25 }}
+            style={{ width: 80, marginRight: 16, marginTop: -50 }}
           />
         </Box>
 
         {/* Botões de navegação */}
-        <Box sx={{ display: "flex", gap: 5 }}>
+        <Box sx={{ display: "flex", gap: 5, marginTop: -3}}>
           <Button color="inherit" onClick={() => scrollToSection("home")}>Home</Button>
           <Button color="inherit" onClick={() => scrollToSection("services")}>Serviços</Button>
           <Button color="inherit" onClick={() => scrollToSection("about")}>Sobre</Button>
-          <Button color="inherit" onClick={() => scrollToSection("social")}>Redes Sociais</Button>
+          <Button color="inherit" onClick={() => scrollToSection("orcamento")}>Orçamentos</Button>
         </Box>
       </Toolbar>
     </AppBar>

@@ -117,22 +117,25 @@ const Services = () => {
       sx={{
         minHeight: "100vh",
         display: "flex",
+        background: "linear-gradient(135deg, #e2e8f0, #cbd5e1)",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         p: { xs: 3, sm: 4, md: 5 },
-        pt: { xs: 10, sm: 12 }
+        pt: { xs: 5, sm: 5 }
       }}
     >
       <Typography
         variant="h1"
         mb={5}
         sx={{
-          fontSize: { xs: 32, sm: 45, md: 60 }
+          fontSize: { xs: 22, sm: 28, md: 36 },
+          fontWeight: 600,
         }}
       >
         NOSSOS SERVIÇOS
       </Typography>
+
 
       <Box sx={{ width: "100%" }}>
         <Slider {...settings}>
@@ -170,7 +173,7 @@ const Services = () => {
                   }}
                 >
                   <Typography
-                    variant="h6"
+                    variant="h2"
                     sx={{
                       fontSize: { xs: 15, sm: 17, md: 19 }
                     }}
