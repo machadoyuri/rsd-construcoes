@@ -9,12 +9,15 @@ import Home from "./pages/Home";
 import Services from "./pages/Services";
 import About from "./pages/About";
 import FormsOrc from "./pages/Orcamento";
+import SocialSidebar from "./components/SocialSidebar";
+
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Navbar />
+      <SocialSidebar/>
       <div id="home">
         <Home />
       </div>
