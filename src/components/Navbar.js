@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { AppBar, Toolbar, Button, Box } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Box,
+  IconButton,
+  Drawer,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import logoRSD from "../assets/logoRSD.png";
 
 function scrollToSection(id) {
@@ -11,54 +19,125 @@ function scrollToSection(id) {
 
 const Navbar = () => {
   const [transparent, setTransparent] = useState(true);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      // se rolar mais de 100px, troca o fundo pra preto
-      if (scrollY > 100) {
-        setTransparent(false);
-      } else {
-        setTransparent(true);
-      }
+      setTransparent(window.scrollY <= 100);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  return (
-    <AppBar
-      position="fixed"
-      elevation={transparent ? 0 : 4}
-      sx={{
-        height: '9vh',
-        p: 1,
-        transition: "background-color 0.4s ease, box-shadow 0.4s ease",
-        bgcolor: transparent ? "transparent" : "#000.0.1",
-        color: "white",
-      }}
-    >
-      <Toolbar
-        sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
-      >
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <img
-            src={logoRSD}
-            alt="Logo RSD"
-            style={{ width: 80, marginRight: 16, marginTop: -50 }}
-          />
-        </Box>
+  const menuItems = [
+    { label: "Home", id: "home" },
+    { label: "Serviços", id: "services" },
+    { label: "Sobre", id: "about" },
+    { label: "Orçamentos", id: "orcamento" },
+  ];
 
-        {/* Botões de navegação */}
-        <Box sx={{ display: "flex", gap: 5, marginTop: -3}}>
-          <Button color="inherit" onClick={() => scrollToSection("home")}>Home</Button>
-          <Button color="inherit" onClick={() => scrollToSection("services")}>Serviços</Button>
-          <Button color="inherit" onClick={() => scrollToSection("about")}>Sobre</Button>
-          <Button color="inherit" onClick={() => scrollToSection("orcamento")}>Orçamentos</Button>
+  return (
+    <>
+      <AppBar
+        position="fixed"
+        elevation={transparent ? 0 : 4}
+        sx={{
+          height: "7vh",
+          bgcolor: transparent ? "transparent" : "#0D1B2A",
+          transition: "0.4s",
+        }}
+      >
+        <Toolbar
+          sx={{
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          {/* BOTÃO MENU - SOMENTE MOBILE/TABLET */}
+          <IconButton
+            sx={{ display: { xs: "flex", md: "none" } }}
+            color="inherit"
+            onClick={() => setOpen(true)}
+          >
+            <MenuIcon />
+          </IconButton>
+
+          {/* LOGO - SOMENTE DESKTOP */}
+          <Box
+            sx={{
+              display: { xs: "none", md: "flex" },
+              alignItems: "center",
+            }}
+          >
+            <img
+              src={logoRSD}
+              alt="Logo RSD"
+              style={{ width: 90, marginBottom: 30 }}
+            />
+          </Box>
+
+          {/* MENU DESKTOP */}
+          <Box
+            sx={{
+              ml: "auto",
+              display: { xs: "none", md: "flex" },
+              gap: 3,
+            }}
+          >
+            {menuItems.map((item) => (
+              <Button
+                key={item.id}
+                color="inherit"
+                onClick={() => scrollToSection(item.id)}
+              >
+                {item.label}
+              </Button>
+            ))}
+          </Box>
+        </Toolbar>
+      </AppBar>
+
+      {/* Drawer Mobile */}
+      <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
+        <Box
+          sx={{
+            width: 260,
+            p: 2,
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+          }}
+        >
+          {/* LOGO */}
+          <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
+            <img
+              src={logoRSD}
+              alt="Logo RSD"
+              style={{ width: 120 }}
+            />
+          </Box>
+
+          {/* MENU */}
+          {menuItems.map((item) => (
+            <Button
+              key={item.id}
+              fullWidth
+              sx={{ justifyContent: "flex-start" }}
+              onClick={() => {
+                scrollToSection(item.id);
+                setOpen(false);
+              }}
+            >
+              {item.label}
+            </Button>
+          ))}
         </Box>
-      </Toolbar>
-    </AppBar>
+      </Drawer>
+
+
+    </>
   );
 };
 

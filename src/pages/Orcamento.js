@@ -30,32 +30,41 @@ export default function Orcamento() {
         display: "flex",
         justifyContent: "center",
         alignItems: "flex-start",
-        py: 10,
+        py: { xs: 6, md: 10 },
+        px: { xs: 2, sm: 3 },
       }}
     >
       <Box
         sx={{
           width: "100%",
-          height: "85vh",
           maxWidth: 900,
           background: "#fff",
           borderRadius: 2,
-          p: 4,
+          p: { xs: 3, sm: 4 },
           boxShadow: "0 10px 30px rgba(0,0,0,.15)",
         }}
       >
-        <Typography variant="h4" fontWeight={700} textAlign="center">
+        <Typography
+          fontWeight={700}
+          textAlign="center"
+          sx={{ fontSize: { xs: 26, md: 32 } }}
+        >
           Solicitar Orçamento
         </Typography>
 
-        <Typography textAlign="center" color="text.secondary" mb={3}>
+        <Typography
+          textAlign="center"
+          color="text.secondary"
+          mb={3}
+          sx={{ fontSize: { xs: 14, md: 16 } }}
+        >
           Preencha os dados abaixo
         </Typography>
 
         <Divider sx={{ mb: 4 }} />
 
         <Box component="form" onSubmit={handleSubmit}>
-          {/* LINHAS SUPERIORES */}
+          {/* CAMPOS */}
           <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
               <TextField fullWidth label="Nome" name="nome" onChange={handleChange} />
@@ -78,15 +87,13 @@ export default function Orcamento() {
             </Grid>
 
             <Grid item xs={12} md={6}>
-              <TextField 
+              <TextField
                 fullWidth
                 select
                 label="Serviços Desejados"
                 name="servico"
                 onChange={handleChange}
-                InputLabelProps={{ shrink: true }}
               >
-
                 <MenuItem value="">Selecione</MenuItem>
                 <MenuItem value="Casa do zero">Casa do zero</MenuItem>
                 <MenuItem value="Reforma interna">Reforma interna</MenuItem>
@@ -97,24 +104,24 @@ export default function Orcamento() {
             </Grid>
           </Grid>
 
-          {/* QUEBRA FORÇADA DE LINHA */}
+          {/* TEXTO */}
           <Box mt={4}>
             <TextField
               fullWidth
               multiline
-              minRows={3}
+              minRows={4}
               label="Especificações"
               name="especificacoes"
               onChange={handleChange}
             />
           </Box>
 
-          {/* BOTÃO NO CANTO INFERIOR DIREITO */}
+          {/* BOTÃO */}
           <Box
             sx={{
               display: "flex",
-              justifyContent: "flex-end",
-              mt: 3,
+              justifyContent: { xs: "center", md: "flex-end" },
+              mt: 4,
             }}
           >
             <Button
@@ -124,6 +131,7 @@ export default function Orcamento() {
                 px: 5,
                 py: 1.5,
                 fontWeight: 700,
+                fontSize: { xs: 14, md: 16 },
               }}
             >
               Enviar

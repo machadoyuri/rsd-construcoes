@@ -4,7 +4,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-// Importe suas imagens
 import servico0 from "../assets/HouseTheZero.jpg";
 import servico1 from "../assets/Pisos.jpg";
 import servico2 from "../assets/Telhados.jpg";
@@ -26,7 +25,6 @@ const services = [
 const Services = () => {
   const [selectedService, setSelectedService] = useState(null);
 
-  // 🔹 RESPONSIVIDADE DO CARROSSEL
   const settings = {
     dots: true,
     infinite: true,
@@ -34,149 +32,127 @@ const Services = () => {
     slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 4500,
     pauseOnHover: true,
     arrows: true,
 
     responsive: [
-      {
-        breakpoint: 1400,
-        settings: { slidesToShow: 3 }
-      },
-      {
-        breakpoint: 1100,
-        settings: { slidesToShow: 2 }
-      },
-      {
-        breakpoint: 850,
-        settings: { slidesToShow: 2, centerMode: true, centerPadding: "40px" }
-      },
-      {
-        breakpoint: 700,
-        settings: { slidesToShow: 1, centerMode: true, centerPadding: "80px" }
-      },
-      {
-        breakpoint: 500,
-        settings: { slidesToShow: 1, centerMode: true, centerPadding: "20px" }
-      },
-      {
-        breakpoint: 380,
-        settings: { slidesToShow: 1, centerMode: false }
-      }
-    ]
+      { breakpoint: 1400, settings: { slidesToShow: 3 } },
+      { breakpoint: 1100, settings: { slidesToShow: 2 } },
+      { breakpoint: 768, settings: { slidesToShow: 1, centerMode: true, centerPadding: "60px" } },
+      { breakpoint: 480, settings: { slidesToShow: 1, centerMode: false } },
+    ],
   };
 
-  /** 🔹 Tela de detalhes */
+  /* ================= DETALHES ================= */
   if (selectedService) {
     return (
-      <Box
-        sx={{
-          minHeight: "100vh",
-          p: { xs: 3, sm: 4, md: 5 }
-        }}
-      >
+      <Box sx={{ minHeight: "100vh", p: { xs: 3, md: 6 } }}>
         <Button variant="outlined" onClick={() => setSelectedService(null)}>
           Voltar
         </Button>
 
         <Typography
-          variant="h2"
-          gutterBottom
-          mt={2}
+          fontWeight={700}
+          mt={3}
           sx={{ fontSize: { xs: 28, sm: 36, md: 48 } }}
         >
           {selectedService.title}
         </Typography>
 
-        {selectedService.image && (
-          <Box
-            component="img"
-            src={selectedService.image}
-            alt={selectedService.title}
-            sx={{
-              width: "100%",
-              maxWidth: "600px",
-              borderRadius: "12px",
-              boxShadow: 3,
-              mt: 2
-            }}
-          />
-        )}
+        <Box
+          component="img"
+          src={selectedService.image}
+          alt={selectedService.title}
+          sx={{
+            width: "100%",
+            maxWidth: 720,
+            borderRadius: 3,
+            mt: 4,
+            boxShadow: 4,
+          }}
+        />
 
-        <Typography sx={{ mt: 3, fontSize: { xs: 16, sm: 18 } }}>
-          Aqui você poderá detalhar o que o serviço "{selectedService.title}" oferece,
-          incluindo benefícios, processos e imagens.
+        <Typography sx={{ mt: 4, fontSize: { xs: 16, sm: 18 } }}>
+          Aqui você poderá detalhar o que o serviço oferece, benefícios,
+          processos, prazos e diferenciais da RSD Construções.
         </Typography>
       </Box>
     );
   }
 
-  /** 🔹 Tela principal */
+  /* ================= LISTAGEM ================= */
   return (
     <Box
       sx={{
         minHeight: "100vh",
-        display: "flex",
         background: "linear-gradient(135deg, #e2e8f0, #cbd5e1)",
+        display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
         alignItems: "center",
-        p: { xs: 3, sm: 4, md: 5 },
-        pt: { xs: 5, sm: 5 }
+        py: { xs: 6, md: 10 },
+        px: { xs: 2, sm: 3, md: 6 },
       }}
     >
       <Typography
-        variant="h1"
-        mb={5}
+        textAlign="center"
+        fontWeight={700}
+        mb={6}
         sx={{
-          fontSize: { xs: 22, sm: 28, md: 36 },
-          fontWeight: 600,
+          fontSize: { xs: 26, sm: 32, md: 40 },
+          letterSpacing: 2,
         }}
       >
         NOSSOS SERVIÇOS
       </Typography>
 
-
-      <Box sx={{ width: "100%" }}>
+      <Box sx={{ width: "100%", maxWidth: 1400 }}>
         <Slider {...settings}>
           {services.map((service) => (
             <Box key={service.id} px={2}>
               <Card
                 onClick={() => setSelectedService(service)}
+                tabIndex={0}
                 sx={{
-                  height: { xs: 260, sm: 330, md: 380, lg: 400 },
-                  display: "flex",
-                  alignItems: "flex-end",
-                  justifyContent: "center",
-                  cursor: "pointer",
-                  transition: "0.2s",
-                  borderRadius: "16px",
+                  height: { xs: 300, sm: 360, md: 400 },
+                  borderRadius: 4,
                   overflow: "hidden",
-                  backgroundImage: service.image
-                    ? `url(${service.image})`
-                    : "linear-gradient(135deg, #f5f5f5, #ddd)",
+                  cursor: "pointer",
+                  position: "relative",
+                  backgroundImage: `url(${service.image})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
+                  transition: "0.3s",
+                  "&::after": {
+                    content: '""',
+                    position: "absolute",
+                    inset: 0,
+                    background:
+                      "linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,.15))",
+                  },
                   "&:hover": {
-                    boxShadow: 9,
-                    transform: "scale(1.02)"
-                  }
+                    transform: "scale(1.03)",
+                    boxShadow: 10,
+                  },
+                  "&:focus-visible": {
+                    outline: "3px solid #2A9B3B",
+                  },
                 }}
               >
                 <CardContent
                   sx={{
-                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    position: "absolute",
+                    bottom: 0,
                     width: "100%",
+                    zIndex: 1,
                     textAlign: "center",
-                    color: "white",
-                    py: 2
+                    color: "#fff",
+                    py: 3,
                   }}
                 >
                   <Typography
-                    variant="h2"
-                    sx={{
-                      fontSize: { xs: 15, sm: 17, md: 19 }
-                    }}
+                    fontWeight={600}
+                    sx={{ fontSize: { xs: 16, sm: 18, md: 20 } }}
                   >
                     {service.title}
                   </Typography>
